@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>پنل مدیریت رزروها</title>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            margin: 0;
+
+            padding: 30px;
+
+            background: #f4f5f7;
+
+            color: #222;
+        }
+
+
+        .container {
+
+            max-width: 1400px;
+
+            margin: auto;
+        }
+
+
+        h1 {
+
+            margin-bottom: 25px;
+        }
+
+
+        /* ---------------- Login ---------------- */
+
+        #login {
+
+            max-width: 400px;
+
+            margin: 80px auto;
+
+            padding: 30px;
+
+            background: white;
+
+            border-radius: 12px;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+
+        #login h2 {
+
+            margin-top: 0;
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 12px;
+
+            margin: 8px 0;
+
+            border: 1px solid #ddd;
+
+            border-radius: 6px;
+
+            font-size: 15px;
+        }
+
+
+        button {
+
+            padding: 11px 18px;
+
+            margin-top: 10px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #222;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 14px;
+        }
+
+
+        button:hover {
+
+            opacity: 0.85;
+        }
+
+
+        #message {
+
+            color: #c00;
+
+            margin-top: 15px;
+        }
+
+
+        /* ---------------- Panel ---------------- */
+
+        #appointments {
+
+            display: none;
+        }
+
+
+        .topbar {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .logout {
+
+            background: #b42318;
+        }
+
+
+        .refresh {
+
+            background: #444;
+        }
+
+
+        /* ---------------- Table ---------------- */
+
+        .table-container {
+
+            width: 100%;
+
+            overflow-x: auto;
+
+            background: white;
+
+            border-radius: 10px;
+
+            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+        }
+
+
+        table {
+
+            width: 100%;
+
+            min-width: 1500px;
+
+            border-collapse: collapse;
+        }
+
+
+        th,
+        td {
+
+            padding: 12px;
+
+            border-bottom: 1px solid #ddd;
+
+            text-align: right;
+
+            vertical-align: top;
+        }
+
+
+        th {
+
+            background: #222;
+
+            color: white;
+
+            white-space: nowrap;
+        }
+
+
+        tr:hover {
+
+            background: #f8f8f8;
+        }
+
+
+        .code {
+
+            font-family: monospace;
+
+            font-weight: bold;
+
+            direction: ltr;
+
+            text-align: left;
+
+            white-space: nowrap;
+        }
+
+
+        .technical {
+
+            max-width: 350px;
+
+            direction: ltr;
+
+            text-align: left;
+
+            font-family: monospace;
+
+            font-size: 12px;
+
+            word-break: break-all;
+        }
+
+
+        .status {
+
+            font-weight: bold;
+
+            white-space: nowrap;
+        }
+
+
+        .pending {
+
+            color: #b26a00;
+        }
+
+
+        .confirmed {
+
+            color: #087443;
+        }
+
+
+        .cancelled {
+
+            color: #b42318;
+        }
+
+
+        .empty {
+
+            text-align: center;
+
+            padding: 40px;
+
+            color: #777;
+        }
+
+
+        .count {
+
+            color: #666;
+
+            margin-bottom: 15px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- ================= LOGIN ================= -->
+
+    <div id="login">
+
+        <h2>ورود به پنل مدیریت</h2>
+
+
+        <input
+            id="email"
+            type="email"
+            placeholder="ایمیل"
+        >
+
+
+        <input
+            id="password"
+            type="password"
+            placeholder="رمز عبور"
+        >
+
+
+        <button onclick="login()">
+            ورود
+        </button>
+
+
+        <p id="message"></p>
+
+    </div>
+
+
+
+    <!-- ================= APPOINTMENTS ================= -->
+
+    <div id="appointments">
+
+
+        <div class="topbar">
+
+            <div>
+
+                <h1>
+                    پنل مدیریت رزروها
+                </h1>
+
+                <div
+                    id="count"
+                    class="count">
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <button
+                    class="refresh"
+                    onclick="loadAppointments()">
+
+                    بروزرسانی
+
+                </button>
+
+
+                <button
+                    class="logout"
+                    onclick="logout()">
+
+                    خروج
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="table-container">
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>کد رزرو</th>
+
+                        <th>نام</th>
+
+                        <th>تلفن</th>
+
+                        <th>خدمت</th>
+
+                        <th>تاریخ</th>
+
+                        <th>ساعت</th>
+
+                        <th>توضیحات</th>
+
+                        <th>وضعیت</th>
+
+                        <th>User ID</th>
+
+                        <th>Browser ID</th>
+
+                        <th>User Agent</th>
+
+                        <th>زمان ثبت</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="tableBody">
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+    // =====================================================
+    // 1. اتصال به Supabase
+    // =====================================================
+
+
+    const SUPABASE_URL =
+        "https://hdmsbuvuuvqusabsqkuj.supabase.co";
+
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_uZEzLVGEmOWiDGO8j2YISg_RlqpaHTx";
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+
+            SUPABASE_URL,
+
+            SUPABASE_PUBLISHABLE_KEY
+
+        );
+
+
+
+    // =====================================================
+    // 2. ورود
+    // =====================================================
+
+
+    async function login() {
+
+
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim();
+
+
+        const password =
+            document
+                .getElementById("password")
+                .value;
+
+
+        const message =
+            document.getElementById("message");
+
+
+        message.innerText = "";
+
+
+        if (!email || !password) {
+
+            message.innerText =
+                "ایمیل و رمز عبور را وارد کنید.";
+
+            return;
+        }
+
+
+        const { error } =
+            await supabaseClient.auth.signInWithPassword({
+
+                email: email,
+
+                password: password
+
+            });
+
+
+        if (error) {
+
+            console.error(error);
+
+
+            message.innerText =
+                "ورود ناموفق بود: " +
+                error.message;
+
+            return;
+        }
+
+
+        showAdminPanel();
+
+
+        loadAppointments();
+
+    }
+
+
+
+    // =====================================================
+    // 3. نمایش پنل
+    // =====================================================
+
+
+    function showAdminPanel() {
+
+        document
+            .getElementById("login")
+            .style.display = "none";
+
+
+        document
+            .getElementById("appointments")
+            .style.display = "block";
+
+    }
+
+
+
+    // =====================================================
+    // 4. نمایش صفحه ورود
+    // =====================================================
+
+
+    function showLogin() {
+
+        document
+            .getElementById("appointments")
+            .style.display = "none";
+
+
+        document
+            .getElementById("login")
+            .style.display = "block";
+
+    }
+
+
+
+    // =====================================================
+    // 5. گرفتن رزروها
+    // =====================================================
+
+
+    async function loadAppointments() {
+
+
+        const tableBody =
+            document.getElementById("tableBody");
+
+
+        tableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="13"
+                    class="empty">
+
+                    در حال دریافت رزروها...
+
+                </td>
+
+            </tr>
+
+        `;
+
+
+        const {
+
+            data,
+
+            error
+
+        } = await supabaseClient
+
+            .from("appointments")
+
+            .select("*")
+
+            .order(
+
+                "created_at",
+
+                {
+                    ascending: false
+                }
+
+            );
+
+
+        if (error) {
+
+            console.error(error);
+
+
+            tableBody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="13"
+                        class="empty">
+
+                        خطا در دریافت رزروها:
+                        ${escapeHTML(error.message)}
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+        }
+
+
+        document
+            .getElementById("count")
+            .innerText =
+            "تعداد رزروها: " + data.length;
+
+
+        tableBody.innerHTML = "";
+
+
+        if (data.length === 0) {
+
+            tableBody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="13"
+                        class="empty">
+
+                        هنوز هیچ رزروی ثبت نشده است.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+        }
+
+
+        data.forEach(function(appointment) {
+
+
+            const status =
+                appointment.status || "";
+
+
+            let statusClass = "";
+
+
+            if (status === "pending") {
+
+                statusClass = "pending";
+
+            }
+
+
+            if (status === "confirmed") {
+
+                statusClass = "confirmed";
+
+            }
+
+
+            if (status === "cancelled") {
+
+                statusClass = "cancelled";
+
+            }
+
+
+            tableBody.innerHTML += `
+
+                <tr>
+
+
+                    <!-- ID -->
+
+                    <td class="code">
+
+                        ${appointment.id || ""}
+
+                    </td>
+
+
+                    <!-- Booking Code -->
+
+                    <td class="code">
+
+                        ${escapeHTML(
+                            appointment.booking_code || ""
+                        )}
+
+                    </td>
+
+
+                    <!-- Name -->
+
+                    <td>
+
+                        ${escapeHTML(
+                            appointment.name || ""
+                        )}
+
+                    </td>
+
+
+                    <!-- Phone -->
+
+                    <td>
+
+                        ${escapeHTML(
+                            appointment.phone || ""
+                        )}
+
+                    </td>
+
+
+                    <!-- Service -->
+
+                    <td>
+
+                        ${escapeHTML(
+                            appointment.service || ""
+                        )}
+
+                    </td>
+
+
+                    <!-- Date -->
+
+                    <td>
+
+                        ${escapeHTML(
+                            appointment.date || ""
+                        )}
+
+                    </td>
+
+
+                    <!-- Time -->
+
+                    <td>
+
+                        ${escapeHTML(
+                            appointment.time || ""
+                        )}
+
+                    </td>
+
+
+                    <!-- Description -->
+
+                    <td>
+
+                        ${escapeHTML(
+                            appointment.description || ""
+                        )}
+
+                    </td>
+
+
+                    <!-- Status -->
+
+                    <td class="status ${statusClass}">
+
+                        ${escapeHTML(status)}
+
+                    </td>
+
+
+                    <!-- User ID -->
+
+                    <td class="technical">
+
+                        ${escapeHTML(
+                            appointment.user_id || "-"
+                        )}
+
+                    </td>
+
+
+                    <!-- Browser ID -->
+
+                    <td class="technical">
+
+                        ${escapeHTML(
+                            appointment.browser_id || "-"
+                        )}
+
+                    </td>
+
+
+                    <!-- User Agent -->
+
+                    <td class="technical">
+
+                        ${escapeHTML(
+                            appointment.user_agent || "-"
+                        )}
+
+                    </td>
+
+
+                    <!-- Created At -->
+
+                    <td>
+
+                        ${formatDate(
+                            appointment.created_at
+                        )}
+
+                    </td>
+
+
+                </tr>
+
+            `;
+
+        });
+
+    }
+
+
+
+    // =====================================================
+    // 6. خروج
+    // =====================================================
+
+
+    async function logout() {
+
+
+        await supabaseClient.auth.signOut();
+
+
+        showLogin();
+
+
+        document
+            .getElementById("password")
+            .value = "";
+
+    }
+
+
+
+    // =====================================================
+    // 7. بررسی Login هنگام باز شدن صفحه
+    // =====================================================
+
+
+    async function checkSession() {
+
+
+        const {
+
+            data
+
+        } = await supabaseClient.auth.getSession();
+
+
+        if (data.session) {
+
+            showAdminPanel();
+
+            loadAppointments();
+
+        } else {
+
+            showLogin();
+
+        }
+
+    }
+
+
+
+    // =====================================================
+    // 8. تبدیل تاریخ
+    // =====================================================
+
+
+    function formatDate(date) {
+
+
+        if (!date) {
+
+            return "";
+
+        }
+
+
+        const d =
+            new Date(date);
+
+
+        return d.toLocaleString(
+            "fa-IR",
+            {
+                dateStyle: "short",
+                timeStyle: "short"
+            }
+        );
+
+    }
+
+
+
+    // =====================================================
+    // 9. جلوگیری از HTML Injection
+    // =====================================================
+
+
+    function escapeHTML(value) {
+
+
+        return String(value)
+
+            .replace(/&/g, "&amp;")
+
+            .replace(/</g, "&lt;")
+
+            .replace(/>/g, "&gt;")
+
+            .replace(/"/g, "&quot;")
+
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+
+    // =====================================================
+    // 10. اجرای اولیه
+    // =====================================================
+
+
+    checkSession();
+
+
+</script>
+
+
+</body>
+
+</html>
