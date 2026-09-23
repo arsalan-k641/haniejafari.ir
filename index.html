@@ -3,25 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta name="description" content="دفتر وکالت هانیه جعفری، وکیل پایه یک دادگستری و مشاور حقوقی، کارشناس ارشد جزا و جرم‌شناسی. پذیرش دعاوی کیفری و خانواده در تهران.">
-
     <meta name="theme-color" content="#0f172a">
-
     <title>هانیه جعفری | وکیل پایه یک دادگستری</title>
 
-    <!-- فونت -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Supabase SDK حذف شد — همه چیز از طریق Worker انجام می‌شود -->
-
     <style>
-
         :root {
             --primary: #0f172a;
             --primary-light: #1e293b;
@@ -35,27 +26,7 @@
             --shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-            background-color: var(--bg-light);
-* {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; }
 
         body {
@@ -68,8 +39,6 @@
 
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
-
-        /* ================= HEADER ================= */
 
         header {
             position: fixed;
@@ -86,410 +55,243 @@
         }
 
         .logo {
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.4rem; font-weight: 900; color: var(--accent);
+            display: flex; align-items: center; gap: 10px;
         }
 
-        .logo span {
-            color: var(--text-light);
-            font-weight: 400;
-            font-size: 0.9em;
-        }
-
+        .logo span { color: var(--text-light); font-weight: 400; font-size: 0.9em; }
         .nav-links { display: flex; gap: 2rem; }
-
-        .nav-links a {
-            color: var(--text-light);
-            font-weight: 400;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
-
+        .nav-links a { color: var(--text-light); font-weight: 400; font-size: 0.95rem; transition: color 0.3s; }
         .nav-links a:hover { color: var(--accent); }
 
         .header-btn {
-            background: var(--accent);
-            color: var(--primary);
-            padding: 0.5rem 1.2rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: transform 0E-3s;
+            background: var(--accent); color: var(--primary);
+            padding: 0.5rem 1.2rem; border-radius: 50px;
+            font-weight: 700; font-size: 0.9rem; transition: transform 0.3s;
         }
-
         .header-btn:hover { transform: translateY(-2px); }
 
-        .menu-toggle {
-            display: none;
-            color: var(--text-light);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* ================= HERO ================= */
+        .menu-toggle { display: none; color: var(--text-light); font-size: 1.5rem; cursor: pointer; }
 
         .hero {
             min-height: 100vh;
             background: radial-gradient(circle at 20% 50%, #1e293b, #0f172a);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-F-linear-gradient(135deg, var(--primary-light), var(--primary));
-            border-radius: var(--radius);
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 100px 20px 60px;
+            position: relative; overflow: hidden;
         }
 
-        .about-visual i {
-            font-size: 8rem;
-            color: rgba(255,255,255,0.1);
+        .hero::before {
+            content: ''; position: absolute;
+            top: -10%; right: -10%; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            border-radius: 50%; z-index: 1;
         }
 
+        .hero-content { position: relative; z-index: 2; max-width: 800px; }
+
+        .badge-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--accent); padding: 0.4rem 1rem;
+            border-radius: 50px; font-size: 0.8rem; font-weight: 700;
+        }
+
+        .hero h1 { font-size: 3rem; color: var(--text-light); margin-bottom: 1.5rem; line-height: 1.3; }
+        .hero h1 span { color: var(--accent); }
+
+        .hero p {
+            font-size: 1.1rem; color: var(--text-gray);
+            margin-bottom: 2.5rem; max-width: 600px;
+            margin-left: auto; margin-right: auto;
+        }
+
+        .btn-large {
+            display: inline-block; background: var(--accent); color: var(--primary);
+            padding: 1rem 3rem; border-radius: 50px;
+            font-weight: 900; font-size: 1.1rem;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s;
+        }
+        .btn-large:hover {
+            background: var(--accent-hover); transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
+        }
+
+        .section { padding: 5rem 5%; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+
+        .section-header h2 {
+            font-size: 2rem; color: var(--primary);
+            position: relative; display: inline-block; padding-bottom: 15px;
+        }
+        .section-header h2::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 4px; background: var(--accent); border-radius: 2px;
+        }
+
+        .about-wrapper { display: flex; align-items: center; gap: 3rem; flex-wrap: wrap; }
+
+        .about-visual {
+            flex: 1; min-width: 300px; aspect-ratio: 4/5;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            border-radius: var(--radius); position: relative;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.05);
+        }
+        .about-visual i { font-size: 8rem; color: rgba(255,255,255,0.1); }
         .about-visual::after {
-            content: '';
-            position: absolute;
-            width: 90%; height: 90%;
-            border: 2px solid var(--accent);
-            border-radius: var(--radius);
-            z-index: -1;
+            content: ''; position: absolute;
+            width: 90%; height: 90%; border: 2px solid var(--accent);
+            border-radius: var(--radius); z-index: -1;
             transform: translate(-10px, 10px);
         }
 
-        .about-text {
-            flex: 1.5;
-            min-width: 300px;
-        }
+        .about-text { flex: 1.5; min-width: 300px; }
+        .about-text h3 { font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--primary); }
+        .about-text p { color: #475569; margin-bottom: 1.5rem; text-align: justify; }
 
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-
-        .about-text p {
-            color: #475569;
-            margin-bottom: 1.5rem;
-            text-align: justify;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(&3, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
         .stat-box {
-            background: white;
-            padding: 1.5rem;
-            border-radius: var(--radius);
-            text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            background: white; padding: 1.5rem; border-radius: var(--radius);
+            text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
             border-top: 3px solid var(--accent);
         }
+        .stat-box h4 { font-size: 1.5rem; color: var(--primary); margin-bottom: 5px; }
+        .stat-box span { font-size: 0.8rem; color: #64748b; }
 
-        .stat-box h4 {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .stat-box span {
-            font-size: 0.8rem;
-            color: #64748b;
-        }
-
-        /* ================= SERVICES ================= */
-
-        .services {
-            background: var(--primary);
-            color: var(--text-light);
-        }
-
+        .services { background: var(--primary); color: var(--text-light); }
         .services .section-header h2 { color: var(--text-light); }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
 
         .service-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2.5rem 1.5rem;
-            border-radius: var(--radius);
-            text-align: center;
-            transition: all 0.3s;
+            padding: 2.5rem 1.5rem; border-radius: var(--radius);
+            text-align: center; transition: all 0.3s;
         }
-
         .service-card:hover {
             background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-10px);
-            border-color: var(--accent);
+            transform: translateY(-10px); border-color: var(--accent);
         }
-
         .service-icon {
             width: 70px; height: 70px;
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            margin: 0 auto 1.5rem;
-            transition: all 0.3s;
+            background: rgba(212, 175, 55, 0.15); color: var(--accent);
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-size: 1.8rem;
+            margin: 0 auto 1.5rem; transition: all 0.3s;
         }
-
-        .service-card:hover .service-icon {
-            background: var(--accent);
-            color: var(--primary);
-        }
-
+        .service-card:hover .service-icon { background: var(--accent); color: var(--primary); }
         .service-card h3 { margin-bottom: 1rem; font-size: 1.2rem; }
         .service-card p { color: #cbd5e1; font-size: 0.9rem; }
 
-        /* ================= CONTACT ================= */
-
         .contact-box {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: var(--shadow);
-            display: flex;
-            gap: 3rem;
-            flex-wrap: wrap;
+            background: var(--white); border-radius: 20px;
+            padding: 3rem; box-shadow: var(--shadow);
+            display: flex; gap: 3rem; flex-wrap: wrap;
         }
-
         .contact-info { flex: 1; min-width: 280px; }
         .contact-form-wrapper { flex: 1.5; min-width: 280px; }
-
-        .info-row {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 2rem;
-        }
-
+        .info-row { display: flex; align-items: center; gap: 15px; margin-bottom: 2rem; }
         .info-icon {
-            width: 50px; height: 50px;
-            background: #fff7ed;
-            color: var(--accent);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
+            width: 50px; height: 50px; background: #fff7ed;
+            color: var(--accent); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; flex-shrink: 0;
         }
-
         .form-group { margin-bottom: 1.5rem; }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-
+        .form-group label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 700; }
         .form-control {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            background: #f8fafc;
-            font-family: inherit;
-            transition: 0.3s;
+            width: 100%; padding: 1rem; border: 1px solid #e2e8f0;
+            border-radius: 8px; background: #f8fafc;
+            font-family: inherit; transition: 0.3s;
         }
-
         .form-control:focus {
-            border-color: var(--accent);
-            background: #fff;
+            border-color: var(--accent); background: #fff;
             box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
         }
-
         .btn-submit {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: inherit;
-            transition: 0.3s;
+            width: 100%; padding@1rem; background: var(--primary);
+            color: white; border: none; border-radius: 8px;
+            font-weight: 700; cursor: pointer; font-family: inherit; transition: 0.3s;
         }
-
-        .btn-submit:hover {
-            background: var(--accent);
-            color: var(--primary);
-        }
-
-        .btn-submit:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+        .btn-submit:hover { background: var(--accent); color: var(--primary); }
+        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
         #formMessage {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 8px;
-            display: none;
-            text-align: center;
-            font-size: 14px;
+            margin-top: 15px; padding: 12px; border-radius: 8px;
+            display: none; text-align: center; font-size: 14px;
         }
-
-        #formMessage.success {
-            display: block;
-            background: #ecfdf5;
-            color: #047857;
-        }
-
-        #formMessage.error {
-            display: block;
-            background: #fef2f2;
-            color: #b91c1c;
-        }
-
-        /* ================= FOOTER ================= */
+        #formMessage.success { display: block; background: #ecfdf5; color: #047857; }
+        #formMessage.error { display: block; background: #fef2f2; color: #b91c1c; }
 
         footer {
-            background: var(--primary);
-            color: var(--text-gray);
-            padding: 4rem 5% 2rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            background: var(--primary); color: var(--text-gray);
+            padding: 4rem 5%$2rem; border-top: 1px solid rgba(255,255,255,0.05);
         }
-
         .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem; margin-bottom: 3rem;
         }
-
-        .footer-col h4 {
-            color: var(--text-light);
-            margin-bottom: 1.5rem;
-        }
-
+        .footer-col h4 { color: var(--text-light); margin-bottom: 1.5rem; }
         .footer-col li { margin-bottom: 0.8rem; }
         .footer-col a:hover { color: var(--accent); }
-
         .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.85rem;
+            text-align: center; padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem;
         }
-
-        /* ================= FLOATING PHONE ================= */
 
         .fab-phone {
-            position: fixed;
-            bottom: 25px; left: 25px;
-            width: 60px; height: 60px;
-            background: #25d366;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            z-index: 999;
-            transition: transform 0.3s;
+            position: fixed; bottom: 25px; left: 25px;
+            width: 60px!height: 60px; background: #25d366;
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            z-index: 999; transition: transform 0.3s;
         }
-
         .fab-phone:hover { transform: scale(1.1); }
 
-        /* ================= MOBILE ================= */
-
-        @media (max-width: 768px) {
-
+        @media (max-width: 7#8px) {
             header { padding: 1rem; }
             .logo span { display: none; }
             .menu-toggle { display: block; }
-
             .nav-links {
-                position: absolute;
-                top: 100%; left: 0; right: 0;
-                background: var(--primary);
-                flex-direction: column;
-                padding: 2rem;
-                gap: 1.5rem;
-                text-align: center;
-                transform: translateY(-20px);
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s;
-                border-top: 1px solid rgba(255,255,255,0.1);
+                position: absolute; top: 100%; left: 0; right: 0;
+                background: var(--primary); flex-direction: column;
+                padding: 2rem; gap: 1.5rem; text-align: center;
+                transform: translateY(-20px); opacity: 0; visibility: hidden;
+                transition: all 0.3s; border-top: 1px solid rgba(255,255,255,0.1);
             }
-
-            .nav-links.active {
-                transform: translateY(0);
-                opacity: 1;
-                visibility: visible;
-            }
-
+            .nav-links.active { transform: translateY(0); opacity: 1; visibility: visible; }
             .hero h1 { font-size: 2rem; }
             .hero { padding-top: 120px; }
-
             .about-wrapper { flex-direction: column-reverse; }
             .about-visual { width: 100%; height: 250px; aspect-ratio: auto; }
             .stats-grid { grid-template-columns: 1fr; gap: 1rem; }
             .contact-box { padding: 1.5rem; }
-
-            .fab-phone {
-                bottom: 20px; left: 20px;
-                width: 50px; height: 50px;
-                font-size: 1.2rem;
-            }
+            .fab-phone { bottom: 20px; left: 20px; width: 50px; height: 50px; font-size: 1.2rem; }
         }
-
     </style>
-
 </head>
-
 <body>
-
-    <!-- ================= HEADER ================= -->
 
     <header>
         <div class="logo">
             <i class="fas fa-scale-balanced"></i>
-            <div>
-                هانیه جعفری
-                <span>| وکیل پایه یک</span>
-            </div>
+            <div>هانیه جعفری <span>| وکیل پایه یک</span></div>
         </div>
-
-        <div class="menu-toggle" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </div>
-
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
         <ul class="nav-links" id="navLinks">
             <li><a href="#hero" onclick="toggleMenu()">خانه</a></li>
             <li><a href="#about" onclick="toggleMenu()">درباره من</a></li>
             <li><a href="#services" onclick="toggleMenu()">خدمات</a></li>
-            <li" onclick="toggleMenu()">تماس با من</a></li>
+            <li><a href="#contact" onclick="toggleMenu()">تماس با من</a></li>
         </ul>
-
         <a href="tel:09125528864" class="header-btn">تماس فوری</a>
     </header>
-
-
-    <!-- ================= HERO ================= -->
 
     <section id="hero" class="hero">
         <div class="hero-content">
@@ -497,62 +299,31 @@ F-linear-gradient(135deg, var(--primary-light), var(--primary));
                 <span class="badge">لایسنس: P.76.72.5</span>
                 <span class="badge">مرکز وکلای قوه قضائیه</span>
             </div>
-            <h1>
-                دفاع حرفه‌ای از حقوق شما
-                <br>
-                با <span>تخصص جزا و جرم‌شناسی</span>
-            </h1>
-            <p>
-                ارائه مشاوره حقوقی و قبول وکالت در دعاوی کیفری و خانواده با رویکردی علمی، دقیق و کاملاً محرمانه.
-            </p>
+            <h1>دفاع حرفه‌ای از حقوق شما<br>با <span>تخصص جزا و جرم‌شناسی</span></h1>
+            <p>ارائه مشاوره حقوقی و قبول وکالت در دعاوی کیفری و خانواده با رویکردی علمی، دقیق و کاملاً محرمانه.</p>
             <a href="#contact" class="btn-large">رزرو وقت مشاوره</a>
         </div>
     </section>
 
-
-    <!-- ================= ABOUT ================= -->
-
     <section id="about" class="section">
-        <div class="section-header">
-            <h2>درباره هانیه جعفری</h2>
-        </div>
+        <div class="section-header"><h2>درباره هانیه جعفری</h2></div>
         <div class="about-wrapper">
-            <div class="about-visual">
-                <i class="fas fa-user-shield"></i>
-            </div>
+            <div class="about-visual"><i class="fas fa-user-shield"></i></div>
             <div class="about-text">
                 <h3>تجربه، تخصص و تعهد حرفه‌ای</h3>
-                <p>
-                    اینجانب هانیه جعفری، وکیل پایه یک دادگستری و کارشناس ارشد جزا و جرم‌شناسی هستم. با بیش از چندین سال فعالیت حرفه‌ای در عرصه وکالت و عضویت در کانون مرکز وکلای قوه قضائیه، متعهد به احقاق حق موکلین خود هستم.
-                </p>
-                <p>
-                    تخصص اصلی من. هدف من جلب رضایت موکل از طریق پیگیری مداوم و شفاف است.
-                </p>
+                <p>اینجانب هانیه جعفری، وکیل پایه یک دادگستری و کارشناس ارشد جزا و جرم‌شناسی هستم. با بیش از چندین سال فعالیت حرفه‌ای در عرصه وکالت و عضویت در کانون مرکز وکلای قوه قضائیه، متعهد به احقاق حق موکلین خود هستم.</p>
+                <p>تخصص اصلی من در پرونده‌های کیفری و تحلیل رفتاری (جرم‌شناسی) است که این امکان را می‌دهد تا دفاعی دقیق‌تر و علمی‌تر در دادگاه ارائه دهم. هدف من جلب رضایت موکل از طریق پیگیری مداوم و شفاف است.</p>
                 <div class="stats-grid">
-                    <div class="stat-box">
-                        <h4>کاهش</h4>
-                        <span>استرس پرونده</span>
-                    </div>
-                    <div class="stat-box">
-                        <h4>پیگیری</h4>
-                        <span>مداوم و مستمر</span>
-                    </div>
-                    <div class="stat-box">
-                        <h4>مشاوره</h4>
-                        <span>تخصصی و صادقانه</span>
-                    </div>
+                    <div class="stat-box"><h4>کاهش</h4><span>استرس پرونده</span></div>
+                    <div class="stat-box"><h4>پیگیری</h4><span>مداوم و مستمر</span></div>
+                    <div class="stat-box"><h4>مشاوره</h4><span>تخصصی و صادقانه</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-
-    <!-- ================= SERVICES ================= -->
-
     <section id="services" class="section services">
-        <div class="section-header">
-            <h2>حوزه‌های فعالیت</h2>
-        </div>
+        <div class="section-header"><h2>حوزه‌های فعالیت</h2></div>
         <div class="services-grid">
             <div class="service-card">
                 <div class="service-icon"><i class="fas fa-gavel"></i></div>
@@ -577,75 +348,44 @@ F-linear-gradient(135deg, var(--primary-light), var(--primary));
         </div>
     </section>
 
-
-    <!-- ================= CONTACT / BOOKING ================= -->
-
     <section id="contact" class="section">
-        <div class="section-header">
-            <h2>رزرو وقت مشاوره</h2>
-        </div>
+        <div class="section-header"><h2>رزرو وقت مشاوره</h2></div>
         <div class="contact-box">
-
-            <!-- اطلاعات دفتر -->
             <div class="contact-info">
                 <h3 style="margin-bottom: 1.5rem;">اطلاعات تماس</h3>
-
                 <div class="info-row">
                     <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <div>
                         <h4>آدرس دفتر</h4>
-                        <p style="color:#64748b; font-size:0.9rem;">
-                            تهران، خیابان پیروزی، سرای سلیمانیه
-                            <br>
-                            نبش کوچه شهایی، نشاط، پلاک ۲
-                            <br>
-                            طبقه ۳، واحد ۵
-                        </p>
+                        <p style="color:#64748b; font-size:0.9rem;">تهان، خیابان پیروزی، سرای سلیمانیه<br>نبش کوچه شهایی، نشاط، پلاک ۲<br>طبقه ۳، واحد ۵</p>
                     </div>
                 </div>
-
                 <div class="info-row">
                     <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
                     <div>
                         <h4>شماره تماس</h4>
-                        <a href="tel:09125528864" style="color:var(--primary); font-weight:700;">
-                            0912-552-8864
-                        </a>
+                        <a href="tel:09125528864" style="color:var(--primary); font-weight:700;">0912-552-8864</a>
                     </div>
                 </div>
-
                 <div class="info-row">
                     <div class="info-icon"><i class="fas fa-clock"></i></div>
                     <div>
                         <h4>ساعات کاری</h4>
-                        <p style="color:#64748b; font-size:0.9rem;">
-                            شنبه تا چهارشنبه: ۹ صبح تا ۶ عصر
-                            <br>
-                            پنجشنبه‌ها: ۹ صبح تا ۱ ظهر
-                        </p>
+                        <p style="color:#64748b; font-size:0.9rem;">شنبه تا چهارشنبه: ۹ صبح تا ۶ عصر<br>پنجشنبه‌ها: ۹ صبح تا ۱ ظهر</p>
                     </div>
                 </div>
             </div>
-
-            <!-- فرم رزرو — بدون تاریخ و ساعت -->
             <div class="contact-form-wrapper">
                 <h3 style="margin-bottom:1.5rem;">درخواست مشاوره</h3>
-
                 <form id="appointmentForm">
-
-                    <!-- نام -->
                     <div class="form-group">
                         <label for="name">نام و نام خانوادگی</label>
                         <input id="name" type="text" class="form-control" placeholder="نام خود را وارد کنید" required>
                     </div>
-
-                    <!-- تلفن -->
                     <div class="form-group">
                         <label for="phone">شماره تماس</label>
                         <input id="phone" type="tel" class="form-control" placeholder="مثال: 0912..." required>
                     </div>
-
-                    <!-- خدمت -->
                     <div class="form-group">
                         <label for="service">نوع مشاوره</label>
                         <select id="service" class="form-control" required>
@@ -657,35 +397,22 @@ F-linear-gradient(135deg, var(--primary-light), var(--primary));
                             <option value="سایر موارد">سایر موارد</option>
                         </select>
                     </div>
-
-                    <!-- توضیحات -->
                     <div class="form-group">
                         <label for="description">توضیحات</label>
                         <textarea id="description" class="form-control" rows="4" placeholder="در صورت تمایل توضیح کوتاهی درباره موضوع خود بنویسید..."></textarea>
                     </div>
-
-                    <button id="submitButton" type="submit" class="btn-submit">
-                        ثبت درخواست مشاوره
-                    </button>
-
+                    <button id="submitButton" type="submit" class="btn-submit">ثبت درخواست مشاوره</button>
                     <div id="formMessage"></div>
                 </form>
             </div>
         </div>
     </section>
 
-
-    <!-- ================= FOOTER ================= -->
-
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
                 <h4>هانیه جعفری</h4>
-                <p>
-                    وکیل پایه یک دادگستری
-                    <br>
-                    کارشناس ارشد جزا و جرم‌شناسی
-                </p>
+                <p>وکیل پایه یک دادگستری<br>کارشناس ارشد جزا و جرم‌شناسی</p>
             </div>
             <div class="footer-col">
                 <h4>لینک‌های سریع</h4>
@@ -704,111 +431,65 @@ F-linear-gradient(135deg, var(--primary-light), var(--primary));
                 </ul>
             </div>
         </div>
-        <div class="copyright">
-            © ۱۴۰۳ تمامی حقوق برای دفتر وکالت هانیه جعفری محفوظ است.
-        </div>
+        <div class="copyright">© ۱۴۰۳ تمامی حقوق برای دفتر وکالت هانیه جعفری محفوظ است.</div>
     </footer>
 
-    <!-- دکمه تماس -->
-    <a href="tel:09125528864" class="fab-phone">
-        <i class="fas fa-phone"></i>
-    </a>
-
+    <a href="tel:09125528864" class="fab-phone"><i class="fas fa-phone"></i></a>
 
     <script>
 
-        // =====================================================
-        // 1. آدرس Worker (جایگزین اتصال مستقیم Supabase)
-        // =====================================================
+        // ===== آدرس Worker =====
+        const WORKER_URL = 'https://haniejafari-api.km1757440.workers.dev';
 
-        const WORKER_URL =
-            "https://haniejafari-api.km1757440.workers.dev";
-
-
-        // =====================================================
-        // 2. منوی موبایل
-        // =====================================================
-
+        // ===== منوی موبایل =====
         function toggleMenu() {
-            const nav = document.getElementById("navLinks");
-            nav.classList.toggle("active");
+            document.getElementById('navLinks').classList.toggle('active');
         }
 
-
-        // =====================================================
-        // 3. ساخت Browser ID
-        // =====================================================
-
+        // ===== Browser ID =====
         function getBrowserId() {
-            let browserId = localStorage.getItem("browser_id");
-            if (!browserId) {
-                browserId = crypto.randomUUID();
-                localStorage.setItem("browser_id", browserId);
+            let id = localStorage.getItem('browser_id');
+            if (!id) {
+                id = crypto.randomUUID();
+                localStorage.setItem('browser_id', id);
             }
-            return browserId;
+            return id;
         }
 
-
-        // =====================================================
-        // 4. ثبت فرم رزرو — از طریق Worker
-        // =====================================================
-
-        document
-            .getElementById("appointmentForm")
-            .addEventListener("submit", submitAppointment);
-
+        // ===== ثبت فرم =====
+        document.getElementById('appointmentForm').addEventListener('submit', submitAppointment);
 
         async function submitAppointment(event) {
 
             event.preventDefault();
 
-            const submitButton = document.getElementById("submitButton");
-            const formMessage = document.getElementById("formMessage");
+            const btn = document.getElementById('submitButton');
+            const msg = document.getElementById('formMessage');
 
-            // پاک کردن پیام قبلی
-            formMessage.className = "";
-            formMessage.innerText = "";
+            msg.className = '';
+            msg.innerText = '';
 
-            // گرفتن اطلاعات فرم (بدون تاریخ و ساعت)
-            const name =
-                document.getElementById("name").value.trim();
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const service = document.getElementById('service').value;
+            const description = document.getElementById('description').value.trim();
 
-            const phone =
-                document.getElementById("phone").value.trim();
-
-            const service =
-                document.getElementById("service").value;
-
-            const description =
-                document.getElementById("description").value.trim();
-
-            // غیرفعال کردن دکمه
-            submitButton.disabled = true;
-            submitButton.innerText = "در حال ثبت...";
+            btn.disabled = true;
+            btn.innerText = 'در حال ثبت...';
 
             try {
 
-                // ساخت کد رزرو در کلاینت
-                const bookingCode =
-                    "HJ-" +
-                    new Date().getFullYear() +
-                    "-" +
-                    crypto.randomUUID()
-                        .split("-")[0]
-                        .toUpperCase();
+                const bookingCode = 'HJ-' + new Date().getFullYear() + '-' + crypto.randomUUID().split('-')[0].toUpperCase();
 
-                // ارسال به Worker
                 const response = await fetch(WORKER_URL, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         name: name,
                         phone: phone,
                         service: service,
                         description: description,
-                        status: "pending",
+                        status: 'pending',
                         booking_code: bookingCode,
                         user_id: null,
                         browser_id: getBrowserId(),
@@ -819,56 +500,40 @@ F-linear-gradient(135deg, var(--primary-light), var(--primary));
                 const result = await response.json();
 
                 if (!response.ok || !result.success) {
-                    console.error("Worker error:", result);
-                    throw new Error(
-                        result.error || "ثبت درخواست انجام نشد"
-                    );
+                    console.error('Worker error:', result);
+                    throw new Error(result.error || 'ثبت درخواست انجام نشد');
                 }
 
-                // نمایش موفقیت
-                formMessage.className = "success";
-                formMessage.innerHTML =
-                    "درخواست شما با موفقیت ثبت شد.<br>" +
-                    "کد پیگیری شما: <strong>" +
-                    bookingCode +
-                    "</strong><br>" +
-                    "لطفاً این کد را نزد خود نگه دارید.";
+                msg.className = 'success';
+                msg.innerHTML = 'درخواست شما با موفقیت ثبت شد.<br>کد پیگیری شما: <strong>' + bookingCode + '</strong><br>لطفاً این کد را نزد خود نگه دارید.';
 
-                // پاک کردن فرم
-                document.getElementById("appointmentForm").reset();
+                document.getElementById('appointmentForm').reset();
 
             } catch (error) {
 
-                console.error("Appointment error:", error);
-
-                formMessage.className = "error";
-                formMessage.innerText =
-                    "ثبت درخواست انجام نشد. لطفاً دوباره تلاشC کنید.";
+                console.error('Appointment error:', error);
+                msg.className = 'error';
+                msg.innerText = 'ثبت درخواست انجام نشد. لطفاً دوباره تلاش کنید.';
 
             } finally {
 
-                submitButton.disabled = false;
-                submitButton.innerText = "ثبت درخواست مشاوره";
+                btn.disabled = false;
+                btn.innerText = 'ثبت درخواست مشاوره';
             }
         }
 
-
-        // =====================================================
-        // 5. تغییر هدر هنگام اسکرول
-        // =====================================================
-
-        window.addEventListener("scroll", () => {
-            const header = document.querySelector("header");
+        // ===== هدر هنگام اسکرول =====
+        window.addEventListener('scroll', function () {
+            var header = document.querySelector('header');
             if (window.scrollY > 50) {
-                header.style.padding = "0.7rem 5%";
-                header.style.boxShadow = "0 4px 20px rgba(0,0,0,0.3)";
+                header.style.padding = '0.7rem 5%';
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
             } else {
-                header.style.padding = "1rem 5%";
-                header.style.boxShadow = "none";
+                header.style.padding = '1rem 5%';
+                header.style.boxShadow = 'none';
             }
         });
 
     </script>
-
 </body>
 </html>
